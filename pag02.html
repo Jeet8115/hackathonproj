@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Schedule and Routes</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <link rel="stylesheet" href="C:\Users\gamer\OneDrive\Desktop\file.css" />
+    
+</head>
+<body>
+    <script src="C:\User\gamer\OneDrive\Desktop\timepass2.js"></script>
+    <div class="container">
+        <div class="bus-routes">
+            <div class="search-container">
+                <input type="text" id="searchBar" class="search-bar" placeholder="Search for a line..." aria-label="Search for a bus route" onkeyup="filterRoutes()">
+                <span class="search-icon" aria-hidden="true">&#128269;</span>
+            </div>
+            <ul id="routeList">
+                <li onclick="focusOnRoute('GL90')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">GL90</span> Kendriya Terminal - Rohini Sector 16
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('GL22')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">GL22</span> New Delhi Railway Station Gate 2 - Anand Vihar ISBT (Viveka Nand ISBT)
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('GL23')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">GL23</span> ISBT / Kashmiri Gate - Anand Vihar ISBT (Viveka Nand ISBT)
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('GL23Cluster')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">GL23Cluster</span> ISBT Maharana Pratap Bus (T) - Anand Vihar ISBT (Viveka Nand ISBT)
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('GL32')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">GL32</span> Karampura Terminal - Noida Sector 34 U.P. Roadways Terminal
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('GL91')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">GL91</span> Shivaji Stadium - Mundka
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('RL-75')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">RL-75</span> New Delhi Railway Station Gate 2 - Dwarka Sector 14 Metro Station
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <!-- Added Routes -->
+                <li onclick="focusOnRoute('33')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">33</span> 	Bhajanpura - Noida Sector 37
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('33A')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">33A</span> 	Badarpur Border - Shashi Chowk / Sector 36/37 Noida
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('33C')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">33C</span> 	Chauhan Patti - 	Anand Vihar ISBT (Viveka Nand ISBT)
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('53')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">53</span> 	Dilshad Garden Depot (New Seemapuri) - 	Mayur Vihar Phase III Terminal / Paper Market
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('56')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">56</span> 	New Delhi Railway Station Gate 2 - 	C.P.W.D. Colony Vasant Vihar
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('70')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">70</span> 	Anand Vihar ISBT (Viveka Nand ISBT) - 	Naraina Vihar
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('71')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">71</span> 	ISBT / Kashmiri Gate - 	Inder Puri JJ Colony
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('72')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">72</span> 	ISBT / Kashmiri Gate - 	Najafgarh
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('73Cluster')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">73Cluster</span> Anand Vihar ISBT (Viveka Nand ISBT) - Rajghat Cluster Depot
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('78')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">78</span> 	Azadpur Terminal - 	Inder Puri (Krishi Kunj)
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('81')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">81</span> 	Tri Nagar Jai Mata Market - R.K. Puram Sector 1
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('85')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">85</span> 	Old Delhi Railway Station - Sultan Puri
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('89')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">89</span> 	Kendriya Terminal - Badli Railway Station
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('91')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">91</span> 	Old Delhi Railway Station - Swaroop Nagar JJ Colony GT Road 
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('92')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">92</span> 	Old Delhi Railway Station - Rohini Sector 22 (Lakhi Ram Park)
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('100')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">100</span> 	Tri Nagar Jai Mata Market - Narela Industrial Area E-Block
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('100A')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">100A</span> 	ISBT / Kashmiri Gate - 	Mukhmel Pur
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('101')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">101</span> 	Old Delhi Railway Station - Bawana
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('102')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">102</span> 	Balak Ram Hospital - 	Hari Nagar Clock Tower
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('103')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">103</span> 	Old Delhi Railway Station - 	Fatehpuri
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('104')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">104</span> 	Azadpur Terminal - Ghoga Village
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('105')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">105</span> 	Azadpur Terminal - 	Auchandi Border
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('106')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">106</span> 	Kanjhawla Depot - 	ISBT / Kashmiri Gate
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('107')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">107</span> 	Mori Gate Terminal - Fatehpuri
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('108')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">108</span> 	Mori Gate - 	Narela Terminal
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('109')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">109</span> Anand Vihar ISBT (Viveka Nand ISBT) - Keshav Nagar (Mukti Ashram Nathupura)
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('115')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">115</span> 	Mori Gate Terminal - Katewara Village
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('119')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">119</span> 	BBM II Depot - Nathupura
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+                <li onclick="focusOnRoute('120')" role="button" tabindex="0">
+                    <span class="bus-icon" aria-hidden="true">🚌</span>
+                    <div class="route-text">
+                        <span class="route-label">120</span> 	Kendriya Terminal - Yamuna C-4>
+                    </div>
+                    <span class="route-arrow" aria-hidden="true">›</span>
+                </li>
+            </ul>
+        </div>
+        <div id="map" class="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="C:\Users\gamer\OneDrive\Desktop\timepass1.js">
+ 
+    </script>
+</body>
+</html>
+
+
+
+
+
